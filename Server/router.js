@@ -14,7 +14,7 @@ mongoose
 const storeSensorValues = async (req, res) => {
     try {
         // Destructure the required values from the request query
-        const { lux, i, v, panel_name } = req.query;
+        const { lux, i, v, panel_name, luxLimit } = req.query;
 
         // Check if all necessary values are provided
         if (!lux || !i || !v ) {
@@ -28,6 +28,7 @@ const storeSensorValues = async (req, res) => {
             voltage_v: v,
             power_w: i*v,
             luminosity_lux: lux,
+            luxLimit,
         });
 
         // Save the document to the database
@@ -52,7 +53,8 @@ const getStatistics = async (req, res) => {
         if (values && values.length > 0) {
             const updatedValues = values.map(value => ({
                 luxValue: value.luminosity_lux,
-                pValue: value.power_w
+                pValue: value.power_w,
+                luxLimit: value.luxLimit,
             }));
 
             res.json({
