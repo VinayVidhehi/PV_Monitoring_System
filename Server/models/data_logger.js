@@ -21,6 +21,10 @@ const dataLoggerSchema = new mongoose.Schema({
     type: Number, // Measured luminosity (Lux)
     required: true
   },
+  luxLimit: {
+    type:Number,
+    required: true,
+  },
   timestamp: {
     type: Date,
     default: Date.now, // Automatically set the date and time when the entry is created
